@@ -1,0 +1,22 @@
+{
+    "name": "",
+    "version": "1.0.0",
+    "key": {
+        "encrypt": false,
+        "value": ""
+    },
+    "auto": {
+        "login": {
+            "password": ""
+        }
+    },
+    "defaults": {
+        "commands": {
+            "help": "!help"
+        }
+    },
+    "logger" : {
+        "level" : "debug",
+        "file" : "logs/[placeholder]_debug.log"
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "ping" : {
+        "id": 0,
+        "enabled": true,
+        "public": false,
+        "description" : "Pings the bot. Don't do it too much though, the bot hates when you do!"
+    }, "help" : {
+        "id": 1,
+        "enabled": true,
+        "public": true,
+        "description" : "I can list all the commands I have currently programmed into me!"
+    }, "pools" : {
+        "id": 2,
+        "enabled": true,
+        "public": true,
+        "description" : "I'll list all commands for mining pools which host b-hash!",
+        "options": {
+            "list": {
+                "id": 0,
+                "enabled": true,
+                "public": true,
+                "description" : "I'll list all active mining pools which host b-hash!"
+            }
+        }
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "notohash": {
+        "active": "",
+        "home": "https://notohash.club/",
+        "image": "https://pbs.twimg.com/profile_images/980624757438627840/Pz5MHQsN_400x400.jpg",
+        "config": "-a lyra2z -o stratum+tcp://notohash.club:4553 -u <WALLET_ADDRESS> -p c=SLC",
+        "api": {
+            "status": "https://notohash.club/api/status",
+            "currencies": "https://notohash.club/api/currencies",
+            "wallet": "https://notohash.club/api/wallet?address="
+        }
+    }
+}
