@@ -17,7 +17,7 @@
     "xevan"
   ],
   "author": "Notorious",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "ascii-art": "^1.4.3",
     "crypto-js": "^3.1.9-1",
