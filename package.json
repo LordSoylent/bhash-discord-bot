@@ -7,13 +7,14 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "slate",
-    "chain",
+    "b-hash",
+    "blockchain",
     "coin",
     "discord",
     "crypto",
     "currency",
-    "lyra2z"
+    "otc",
+    "xevan"
   ],
   "author": "Notorious",
   "license": "ISC",
