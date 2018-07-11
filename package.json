@@ -20,12 +20,14 @@
   "license": "MIT",
   "dependencies": {
     "ascii-art": "^1.4.3",
+    "coffeescript": "^2.3.1",
     "crypto-js": "^3.1.9-1",
     "discord.js": "^11.3.2",
     "gulp": "^3.9.1",
     "gulp-nodemon": "^2.2.1",
     "hoek": "^4.2.1",
     "node-json-minify": "^1.0.0",
+    "rpc-client": "^1.0.1",
     "winston": "^3.0.0",
     "winston-daily-rotate-file": "^2.0.0-rc.6"
   }
