@@ -3,7 +3,14 @@
     "version": "1.0.0",
     "key": {
         "encrypt": false,
-        "value": ""
+        "value": "",
+        "rpc": {
+            "host": "",
+            "port": "",
+            "user": "",
+            "password": "",
+            "protocol": ""
+        }
     },
     "auto": {
         "login": {

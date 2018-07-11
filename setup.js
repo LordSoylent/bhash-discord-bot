@@ -17,6 +17,7 @@ JSON.minify = JSON.minify || require("node-json-minify");
 
 // Context boilerplate file
 var contextBoiler = './configs/context.boiler.json';
+var setupRPCClient = false;
 
 // Ensure we have a valid context file
 if (!fs.existsSync(contextBoiler)){
@@ -65,25 +66,72 @@ function runSetup() {
                     rl.close();
                 } else {
                     context.key.value = answer;
-                    rl.question('Do you want to encrypt your authentication key? (Reccomended) [y/n]\n', (answer) => {
+                    rl.question('Do you want to setup a RPC client now? [y/n]\n', (answer) => {
                         if(answer && answer.toLocaleLowerCase() === 'y') {
-                            rl.question('What password would you like to encrypt your key with?\n', (answer) => {
+                            rl.question('What host would you like to connect to? (Ex. 127.0.0.1)\n', (answer) => {
                                 if(!answer || answer.length <= 0) {
-                                    console.error('You must enter password to encrypt with key! Ignoring encryption!');
-                                    finalizeSetup();
-                                } else {
-                                    context.key.encrypt = true;
-                                    context.key.value = CryptoJS.AES.encrypt(context.key.value, answer).toString();
-                                    finalizeSetup();
+                                    console.error('You must enter a host to continue! Ignoring RPC client setup!');
+                                    continueSetup();
                                 }
+                                context.key.rpc.host = answer;
+                                rl.question('What port would you like to use? (Ex. 17654)\n', (answer) => {
+                                    if(!answer || answer.length <= 0) {
+                                        console.error('You must enter a port to continue! Ignoring RPC client setup!');
+                                        continueSetup();
+                                    }
+                                    context.key.rpc.port = answer;
+                                    rl.question('What is your "rpcuser"? (Ex. somerandomname)\n', (answer) => {
+                                        context.key.rpc.user = answer;
+                                        rl.question('What is your "rpcpassword"? (Ex. somerandomname)\n', (answer) => {
+                                            context.key.rpc.password = answer;
+                                            rl.question('What protocol would you like to use for connection? (Leave blank for the default value of "http")\n', (answer) => {
+                                                if(!answer || answer.length <= 0) {
+                                                    answer = 'http';
+                                                }
+                                                context.key.rpc.protocol = answer;
+                                                setupRPCClient = true;
+                                                continueSetup();
+                                            });
+                                        });
+                                    });
+                                });
                             });
                         } else {
-                            finalizeSetup();
+                            continueSetup();
                         }
                     });
                 }
             });
         });
+    });
+}
+
+function continueSetup() {
+    rl.question('Do you want to encrypt your data? (Reccomended) [y/n]\n', (answer) => {
+        if(answer && answer.toLocaleLowerCase() === 'y') {
+            rl.question('What password would you like to encrypt your data with?\n', (answer) => {
+                if(!answer || answer.length <= 0) {
+                    console.error('You must enter password to encrypt with data! Ignoring encryption!');
+                    finalizeSetup();
+                } else {
+                    context.key.encrypt = true;
+                    context.key.value = CryptoJS.AES.encrypt(context.key.value, answer).toString();
+                    if(setupRPCClient){
+                        context.key.rpc.host = CryptoJS.AES.encrypt(context.key.rpc.host, answer).toString();
+                        context.key.rpc.port = CryptoJS.AES.encrypt(context.key.rpc.port, answer).toString();
+                        if(context.key.rpc.user && context.key.rpc.user.length > 0){
+                            context.key.rpc.user = CryptoJS.AES.encrypt(context.key.rpc.user, answer).toString();
+                        }
+                        if(context.key.rpc.password && context.key.rpc.password.length > 0){
+                            context.key.rpc.password = CryptoJS.AES.encrypt(context.key.rpc.password, answer).toString();
+                        }
+                    }
+                    finalizeSetup();
+                }
+            });
+        } else {
+            finalizeSetup();
+        }
     });
 }
 

@@ -25,7 +25,14 @@ module.exports = {
         // Determine if the authetnication key will be encrypted
         encrypt: context.key.encrypt,
         // The authentication key
-        value: context.key.value
+        value: context.key.value,
+        rpc: {
+            host: context.key.rpc.host,
+            port: context.key.rpc.port,
+            user: context.key.rpc.user,
+            password: context.key.rpc.password,
+            protocol: context.key.rpc.protocol
+        }
     },
     
 

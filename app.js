@@ -14,8 +14,6 @@ var arguments = process.argv.slice(2);
 var logger = new Logger(context.name, 'ROOT');
 var cliHandler = new CLIHandler();
 
-//USED FOR TESTING ONLY
-var password = context.auto.login.password;
 
 //Check to make sure the user includes a password
 if(!password && arguments.length < 1) {
@@ -24,7 +22,7 @@ if(!password && arguments.length < 1) {
   //Define usage for user
 
 } else {
-
+  context.auto.login.password = arguments[0];
   //Handle when bot has logged in and is ready
   client.on('ready', () => {
     logger.info(`Hello, I\'m ${context.name} v${context.version}! Ready to work when you are!`);
@@ -42,10 +40,10 @@ if(!password && arguments.length < 1) {
   //Log into the client using encrypted key and password if enabled
   var key = "";
   if(context.key.encrypt){
-    var bytes = CryptoJS.AES.decrypt(context.key.value, password ? password : arguments[0]);
+    var bytes = CryptoJS.AES.decrypt(context.key.value, context.auto.login.password);
     key = bytes.toString(CryptoJS.enc.Utf8);
   } else {
-    key = context.key.value
+    key = context.key.value;
   }
   client.login(key);
 }
